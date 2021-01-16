@@ -90,7 +90,8 @@
                                     <center><i class="fa fa-pencil-square-o" style="color:#3369e8"> </i></center>
                                 </div>
                                 <div class="wrimagecard-topimage_title">
-                                    <h4>Novo Relatório
+                                    <h4>
+                                        Novo Relatório
                                         <div class="pull-right badge" id="WrGridSystem"></div>
                                     </h4>
                                 </div>
@@ -110,7 +111,8 @@
                                     <center><i class="fa fa-shield" style="color:#d50f25"> </i></center>
                                 </div>
                                 <div class="wrimagecard-topimage_title">
-                                    <h4>Painel Administrativo
+                                    <h4>
+                                        Painel Administrativo
                                         <div class="pull-right badge" id="WrForms"></div>
                                     </h4>
                                 </div>

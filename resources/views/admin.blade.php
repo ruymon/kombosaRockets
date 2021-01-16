@@ -30,7 +30,7 @@
                             <a href="#">
                                 <div class="wrimagecard-topimage_header"
                                      style="background-color:  rgba(250, 10, 238, 0.1)">
-                                    <center><i class="fa fa-plus" style="color:#fa0aee"> </i></center>
+                                    <center><i class="fa fa-newspaper-o" style="color:#fa0aee"> </i></center>
                                 </div>
                                 <div class="wrimagecard-topimage_title">
                                     <h4>Gerenciar Avisos
@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="wrimagecard-topimage_title">
                                     <h4>Gerenciar Usuários
-                                        <div class="pull-right badge" id="WrGridSystem"></div>
+                                        <div class="pull-right badge" id="WrGridSystem">{{$usersCount}}</div>
                                     </h4>
                                 </div>
 

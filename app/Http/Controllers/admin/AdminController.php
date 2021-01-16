@@ -18,8 +18,8 @@ class AdminController extends Controller
 
     public function index()
     {
-        $users = DB::table('users')->count();
-        return view('admin');
+        $usersCount = DB::table('users')->count();        
+        return view('admin', compact('usersCount'));
     }
 
     public function users()
