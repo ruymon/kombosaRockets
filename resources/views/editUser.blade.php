@@ -40,8 +40,10 @@
                             <form method="post" action="{{route('admin.updateUser', ['id' => $user->id] ) }}">
                             @csrf
 
+
                             <!-- Name -->
                                 <div class="form-group">
+                                    <h6 class="text-muted">Nome:</h6>
                                     <div class="form-label-group">
                                         <input id="name" type="text" placeholder="Nome"
                                                value="{{$user->name}}"
@@ -54,9 +56,11 @@
                                 <!-- Username -->
                                 <div class="form-group">
                                     <div class="form-label-group">
+                                        <h6 class="text-muted">Usuário:</h6>
                                         <input id="username" type="text" placeholder="Usuário"
                                                value="{{$user->username}}"
-                                               class="form-control" required>
+                                               class="form-control" name="username"
+                                               autocomplete="username" autofocus>
 
 
                                     </div>
@@ -65,6 +69,7 @@
                                 <!-- Email -->
                                 <div class="form-group">
                                     <div class="form-label-group">
+                                        <h6 class="text-muted">Email:</h6>
                                         <input id="email" type="email" placeholder="E-mail"
                                                class="form-control" name="email"
                                                 value="{{$user->email}}"
@@ -73,15 +78,16 @@
                                     </div>
                                 </div>
 
+                                <h6 class="text-muted mt-2">Cargo:</h6>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Member Role - Administrador" value="admin" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="roles" id="exampleRadios1" value="admin"  {{ ($user->roles=="admin")? "checked" : "" }}>
+                                    <label class="form-check-label" for="exampleRadios1">
                                         Administrador
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="Member Role - Membro" value="" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
+                                    <input class="form-check-input" type="radio" name="roles" id="exampleRadios2" value=" " {{ ($user->roles=="")? "checked" : "" }}>
+                                    <label class="form-check-label" for="exampleRadios2">
                                         Membro
                                     </label>
                                 </div>

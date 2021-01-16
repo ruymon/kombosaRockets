@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use http\Env\Request;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use PDF;
@@ -18,7 +19,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $usersCount = DB::table('users')->count();        
+        $usersCount = DB::table('users')->count();
         return view('admin', compact('usersCount'));
     }
 
@@ -34,7 +35,7 @@ class AdminController extends Controller
         $user = DB::table('users')->where('id', $id)->first();
         DB::table('users')->where('id', $id)->delete();
         alert()->html('Aviso!', "O usuário(a) <strong>{$user->name}</strong> foi deletado(a).", 'info');
-        return redirect('admin');
+        return redirect('admin/users');
     }
 
     // Editar Usuário
@@ -44,10 +45,20 @@ class AdminController extends Controller
         return view('editUser', compact('user_data'));
     }
 
-    // public function updateUser(Request $request, $id)
-    // {
-    //     return response()->json($request);
-    // }
+    public function updateUser(Request $request, $id)
+     {
+         $updatedUser = User::find($id);
+         $updatedUser->name = $request->name;
+         $updatedUser->email = $request->email;
+         $updatedUser->username = $request->username;
+         $updatedUser->roles = $request->roles;
+
+         $updatedUser->save();
+
+         alert()->html('Aviso!', "O usuário(a) <strong>{$updatedUser->name}</strong> foi atualizado(a).", 'success');
+         return redirect('admin/users');
+
+     }
 
 
     //No Feature

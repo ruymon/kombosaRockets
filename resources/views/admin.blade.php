@@ -15,10 +15,10 @@
                 <h2 class="mb-3">Painel Administrativo</h2>
 
                 <h5>Olá, {{ Auth::user()->name }} !</h5>
-                <span class="text-muted"> 
-                Aqui você pode gerenciar todos os sistemas. <br> 
+                <span class="text-muted">
+                Aqui você pode gerenciar todos os sistemas. <br>
                 Em caso de dúvida não hesite em entrar em contato com o desenvolvedor
-                </span> 
+                </span>
                 <hr class="mb-5 mt-4">
 
 
@@ -76,7 +76,6 @@
                             </a>
                         </div>
                     </div>
-
 
 
                     <!-- Users -->

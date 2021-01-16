@@ -12,14 +12,14 @@
                 @endif
 
                 <h2 class="mb-2">Portal do Membro</h2>
-                
+
 
                 <h5 class=" mt-3 mb-2">Olá, {{ Auth::user()->name }} !</h5>
-                <span class="text-muted"> 
-                Aqui você pode criar e consultar relatórios.<br> 
+                <span class="text-muted">
+                Aqui você pode criar e consultar relatórios.<br>
                 Em caso de dúvida não hesite em entrar em contato com o desenvolvedor.
-                </span> 
-                
+                </span>
+
                 <hr class="mt-3 mb-4">
 
 
