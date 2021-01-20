@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use PDF;
+use App\News;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -60,21 +62,36 @@ class AdminController extends Controller
 
      }
 
-
-    //No Feature
-    public function noFeature()
-    {
-        alert()->html('Aviso!', "Infelizmente este recurso ainda não está disponivel!", 'info');
-
-        return redirect('admin');
-    }
-
-
-    // Gerar PDF
+    // Gerar PDF de Usuários
     public function pdf()
     {
         $users = DB::table('users')->get();
         $generate = PDF::loadView('pdf', compact('users'));
         return $generate->setPaper('A4')->stream('usuarios.pdf');
     }
+
+    //News -> ADMIN 
+    public function indexNews()
+    {
+        $newsList = News::all();
+
+        return view('manageNews', compact('newsList'));
+    }
+
+    public function createNews(Request $request) 
+    {
+
+        $insert = new News();
+        $insert->title = $request->title;
+        $insert->article = $request->article;
+        $insert->author = Auth::user()->id;
+
+        
+        $insert->save();
+
+        alert()->html('Aviso!', "O aviso: <strong>{$insert->title}</strong> foi criado.", 'success');
+         return redirect('admin/manageNews');
+        
+    }
+
 }

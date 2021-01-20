@@ -27,7 +27,7 @@
                     <!-- Criar Avisos -->
                     <div class="col-md-3 col-sm-4">
                         <div class="wrimagecard wrimagecard-topimage">
-                            <a href="#">
+                            <a href="{{route('admin.indexNews')}}">
                                 <div class="wrimagecard-topimage_header"
                                      style="background-color:  rgba(250, 10, 238, 0.1)">
                                     <center><i class="fa fa-newspaper-o" style="color:#fa0aee"> </i></center>

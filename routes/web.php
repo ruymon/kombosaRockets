@@ -24,10 +24,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', 'admin\AdminController@index')->name('admin');
     Route::get('/admin/{id}/delete', 'admin\AdminController@delete')->name('admin.delete');
     Route::get('/admin/users', 'admin\AdminController@users')->name('admin.users');
+
     Route::get('/admin/{id}/edit', 'admin\AdminController@editUser')->name('admin.editUser');
     Route::post('/admin/{id}/update', 'admin\AdminController@updateUser')->name('admin.updateUser');
+    
     Route::get('/admin/pdf', 'admin\AdminController@pdf')->middleware('admin');
-    Route::get('/admin/noFeature', 'admin\AdminController@noFeature')->name('admin.noFeature');
+
+    Route::get('/admin/manageNews', 'admin\AdminController@indexNews')->name('admin.indexNews');
+    Route::post('/admin/manageNews/create', 'admin\AdminController@createNews')->name('admin.createNews');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -11,7 +11,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h3>
-                Painel Administrativo
+                Gerenciar Usuários
             </h3>
 
             <a class="" href="{{route('home')}}" role="button">
