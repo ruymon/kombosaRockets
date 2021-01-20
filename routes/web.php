@@ -32,6 +32,7 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/admin/manageNews', 'admin\AdminController@indexNews')->name('admin.indexNews');
     Route::post('/admin/manageNews/create', 'admin\AdminController@createNews')->name('admin.createNews');
+    Route::get('/admin/{id}/deleteNews', 'admin\AdminController@deleteNews')->name('admin.deleteNews');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -14,7 +14,7 @@
             Gerenciar Avisos
         </h3>
 
-        <a class="" href="{{route('home')}}" role="button">
+        <a class="" href="{{route('admin')}}" role="button">
             <i class="fa fa-undo" aria-hidden="true"></i>
             Voltar
         </a>
@@ -63,16 +63,16 @@
                                     <td style="padding:0;">
                                         <textarea style="width:100%; height:100%;" class="form-control" readonly>{{$news->article}}</textarea> 
                                     </td>
-                                    <td style="width: 11%;">{{$news->author}}</td>
+                                    <td style="width: 11%;">{{$news->name}}</td>
 
                                     <td style="width: 11%; padding-left: 0.5em; padding-right: 0.5em;">
-                                        <samp>{{$news->created_at}}</samp>
+                                        <samp>{{$news->updated_at}}</samp>
                                     </td>
                                     
                                     <td style="width: 3%; padding: 0.2em; padding-left:0.5em">
 
                                         <button type="submit" style="padding: 0;border: none;background: none;">
-                                            <a onclick="alert('Botão de Deletar')" class="badge badge-danger text-light">Deletar</a>
+                                            <a href="{{route('admin.deleteNews', ['id' => $news->id] )}}" class="badge badge-danger text-light">Deletar</a>
                                         </button>
 
                                         <br>
@@ -133,13 +133,6 @@
                         <div class="form-group">
                             <div class="form-label-group">
                                 <textarea id="article" class="form-control" placeholder="Corpo" rows="3" name="article" required></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Autor -->
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input id="autor" type="text" placeholder="Autor" class="form-control" name="author" required>
                             </div>
                         </div>
 
