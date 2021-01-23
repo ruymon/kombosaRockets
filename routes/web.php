@@ -21,7 +21,8 @@ Auth::routes();
 
 // Admin only
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', 'admin\AdminController@index')->name('admin');
+    Route::get('/admin', 'admin\AdminController@dataCount')->name('admin');
+
     Route::get('/admin/{id}/delete', 'admin\AdminController@delete')->name('admin.delete');
     Route::get('/admin/users', 'admin\AdminController@users')->name('admin.users');
 
@@ -30,9 +31,9 @@ Route::group(['middleware' => 'admin'], function () {
     
     Route::get('/admin/pdf', 'admin\AdminController@pdf')->middleware('admin');
 
-    Route::get('/admin/manageNews', 'admin\AdminController@indexNews')->name('admin.indexNews');
-    Route::post('/admin/manageNews/create', 'admin\AdminController@createNews')->name('admin.createNews');
-    Route::get('/admin/{id}/deleteNews', 'admin\AdminController@deleteNews')->name('admin.deleteNews');
+    Route::get('/admin/manageNews', 'admin\AdminNewsController@indexNews')->name('admin.indexNews');
+    Route::post('/admin/manageNews/create', 'admin\AdminNewsController@createNews')->name('admin.createNews');
+    Route::get('/admin/{id}/deleteNews', 'admin\AdminNewsController@deleteNews')->name('admin.deleteNews');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

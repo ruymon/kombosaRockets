@@ -19,10 +19,14 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    public function index()
+    public function dataCount()
     {
-        $usersCount = DB::table('users')->count();
-        return view('admin', compact('usersCount'));
+        $usersCount = User::count();
+        $newsCount = News::count();
+
+
+
+        return view('admin', compact('usersCount', 'newsCount'));
     }
 
     public function users()
@@ -69,40 +73,4 @@ class AdminController extends Controller
         $generate = PDF::loadView('pdf', compact('users'));
         return $generate->setPaper('A4')->stream('usuarios.pdf');
     }
-
-    //News -> ADMIN 
-    public function indexNews()
-    {
-        $newsList = DB::table('table_news')
-                    ->join('users', 'table_news.author', '=', 'users.id')
-                    ->select('table_news.id', 'table_news.title', 'table_news.article', 'users.name', 'table_news.updated_at')
-                    ->get();
-            
-        return view('manageNews', compact('newsList'));
-    }
-
-    public function createNews(Request $request) 
-    {
-
-        $insert = new News();
-        $insert->title = $request->title;
-        $insert->article = $request->article;
-        $insert->author = Auth::user()->id;
-        
-        $insert->save();
-
-        alert()->html('Aviso!', "O aviso: <strong>{$insert->title}</strong> foi criado.", 'success');
-        return redirect('admin/manageNews');
-        
-    }
-
-    public function deleteNews($id)
-    {
-        $news = DB::table('table_news')->where('id', $id)->first();
-        DB::table('table_news')->where('id', $id)->delete();
-        alert()->html('Aviso!', "O aviso <strong>{$news->title}</strong> foi deletado.", 'info');
-        return redirect('admin/manageNews');
-    }
-
-
 }
