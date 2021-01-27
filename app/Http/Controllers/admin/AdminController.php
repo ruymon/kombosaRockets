@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use http\Env\Request;
+use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Notifications\Notifiable;
 use PDF;
+use App\News;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -16,10 +19,14 @@ class AdminController extends Controller
         $this->middleware('admin');
     }
 
-    public function index()
+    public function dataCount()
     {
-        $users = DB::table('users')->count();
-        return view('admin');
+        $usersCount = User::count();
+        $newsCount = News::count();
+
+
+
+        return view('admin', compact('usersCount', 'newsCount'));
     }
 
     public function users()
@@ -34,7 +41,7 @@ class AdminController extends Controller
         $user = DB::table('users')->where('id', $id)->first();
         DB::table('users')->where('id', $id)->delete();
         alert()->html('Aviso!', "O usuário(a) <strong>{$user->name}</strong> foi deletado(a).", 'info');
-        return redirect('admin');
+        return redirect('admin/users');
     }
 
     // Editar Usuário
@@ -44,22 +51,22 @@ class AdminController extends Controller
         return view('editUser', compact('user_data'));
     }
 
-    // public function updateUser(Request $request, $id)
-    // {
-    //     return response()->json($request);
-    // }
+    public function updateUser(Request $request, $id)
+     {
+         $updatedUser = User::find($id);
+         $updatedUser->name = $request->name;
+         $updatedUser->email = $request->email;
+         $updatedUser->username = $request->username;
+         $updatedUser->roles = $request->roles;
 
+         $updatedUser->save();
 
-    //No Feature
-    public function noFeature()
-    {
-        alert()->html('Aviso!', "Infelizmente este recurso ainda não está disponivel!", 'info');
+         alert()->html('Aviso!', "O usuário(a) <strong>{$updatedUser->name}</strong> foi atualizado(a).", 'success');
+         return redirect('admin/users');
 
-        return redirect('admin');
-    }
+     }
 
-
-    // Gerar PDF
+    // Gerar PDF de Usuários
     public function pdf()
     {
         $users = DB::table('users')->get();

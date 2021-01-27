@@ -15,10 +15,10 @@
                 <h2 class="mb-3">Painel Administrativo</h2>
 
                 <h5>Olá, {{ Auth::user()->name }} !</h5>
-                <span class="text-muted"> 
-                Aqui você pode gerenciar todos os sistemas. <br> 
+                <span class="text-muted">
+                Aqui você pode gerenciar todos os sistemas. <br>
                 Em caso de dúvida não hesite em entrar em contato com o desenvolvedor
-                </span> 
+                </span>
                 <hr class="mb-5 mt-4">
 
 
@@ -27,15 +27,14 @@
                     <!-- Criar Avisos -->
                     <div class="col-md-3 col-sm-4">
                         <div class="wrimagecard wrimagecard-topimage">
-                            <a href="#">
+                            <a href="{{route('admin.indexNews')}}">
                                 <div class="wrimagecard-topimage_header"
                                      style="background-color:  rgba(250, 10, 238, 0.1)">
-                                    <center><i class="fa fa-plus" style="color:#fa0aee"> </i></center>
+                                    <center><i class="fa fa-newspaper-o" style="color:#fa0aee"> </i></center>
                                 </div>
-                                <div class="wrimagecard-topimage_title">
-                                    <h4>Gerenciar Avisos
-                                        <div class="pull-right badge" id="WrInformation"></div>
-                                    </h4>
+                                <div class="wrimagecard-topimage_title d-flex flex-column justify-content-center align-items-center">
+                                    <h4>Gerenciar Avisos</h4>
+                                    <div class="pull-right badge count" id="WrInformation">{{$newsCount}}</div>
                                 </div>
 
                             </a>
@@ -50,10 +49,9 @@
                                      style="background-color: rgba(22, 160, 133, 0.1)">
                                     <center><i class="fa fa-calendar" style="color:#16A085"></i></center>
                                 </div>
-                                <div class="wrimagecard-topimage_title">
-                                    <h4>Gerenciar Calendário
-                                        <div class="pull-right badge" id="WrControls"></div>
-                                    </h4>
+                                <div class="wrimagecard-topimage_title d-flex flex-column justify-content-center align-items-center">
+                                    <h4>Gerenciar Calendário</h4>
+                                    <div class="pull-right badge count" id="WrControls">22</div>
                                 </div>
                             </a>
                         </div>
@@ -68,15 +66,13 @@
                                      style="background-color:rgba(187, 120, 36, 0.1) ">
                                     <center><i class="fa fa-database" style="color:#BB7824"></i></center>
                                 </div>
-                                <div class="wrimagecard-topimage_title">
-                                    <h4>Gerenciar Relatórios
-                                        <div class="pull-right badge"></div>
-                                    </h4>
+                                <div class="wrimagecard-topimage_title d-flex flex-column justify-content-center align-items-center">
+                                    <h4>Gerenciar Relatórios</h4>
+                                    <div class="pull-right badge count">15</div>
                                 </div>
                             </a>
                         </div>
                     </div>
-
 
 
                     <!-- Users -->
@@ -88,10 +84,9 @@
                                      style="background-color:  rgba(51, 105, 232, 0.1)">
                                     <center><i class="fa fa-users" style="color:#3369e8"> </i></center>
                                 </div>
-                                <div class="wrimagecard-topimage_title">
-                                    <h4>Gerenciar Usuários
-                                        <div class="pull-right badge" id="WrGridSystem"></div>
-                                    </h4>
+                                <div class="wrimagecard-topimage_title d-flex flex-column justify-content-center align-items-center">
+                                    <h4>Gerenciar Usuários</h4>
+                                    <div class="pull-right badge count">{{$usersCount}}</div>
                                 </div>
 
                             </a>
@@ -162,6 +157,11 @@
             text-decoration: none;
             color: #525c65;
             transition: color 0.3s ease;
+        }
+
+        .count {
+            font-size: 1rem;
+            font-weight: 400;
         }
 
 
