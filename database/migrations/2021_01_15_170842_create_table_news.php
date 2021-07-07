@@ -15,9 +15,9 @@ class CreateTableNews extends Migration
     {
         Schema::create('table_news', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('title');
             $table->string('article');
-            $table->number('author');
             $table->timestamps();
         });
     }

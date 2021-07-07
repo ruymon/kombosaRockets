@@ -35,83 +35,71 @@
                 </div>
 
                     <div class="card-body">
+                        <form method="post" action="{{route('admin.updateUser', $user->id) }}">
+                        @csrf
+                        <!-- Name -->
+                            <div class="form-group">
+                                <h6 class="text-muted">Nome:</h6>
+                                <div class="form-label-group">
+                                    <input id="name" type="text" placeholder="Nome"
+                                           value="{{$user->name}}"
+                                           class="form-control" name="name"
+                                            autocomplete="name" autofocus>
 
-                        @foreach($user_data as $user)
-                            <form method="post" action="{{route('admin.updateUser', ['id' => $user->id] ) }}">
-                            @csrf
-
-
-                            <!-- Name -->
-                                <div class="form-group">
-                                    <h6 class="text-muted">Nome:</h6>
-                                    <div class="form-label-group">
-                                        <input id="name" type="text" placeholder="Nome"
-                                               value="{{$user->name}}"
-                                               class="form-control" name="name"
-                                                autocomplete="name" autofocus>
-
-                                    </div>
                                 </div>
+                            </div>
 
-                                <!-- Username -->
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <h6 class="text-muted">Usuário:</h6>
-                                        <input id="username" type="text" placeholder="Usuário"
-                                               value="{{$user->username}}"
-                                               class="form-control" name="username"
-                                               autocomplete="username" autofocus>
+                            <!-- Username -->
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <h6 class="text-muted">Usuário:</h6>
+                                    <input id="username" type="text" placeholder="Usuário"
+                                           value="{{$user->username}}"
+                                           class="form-control" name="username"
+                                           autocomplete="username" autofocus>
 
 
-                                    </div>
                                 </div>
+                            </div>
 
-                                <!-- Email -->
-                                <div class="form-group">
-                                    <div class="form-label-group">
-                                        <h6 class="text-muted">Email:</h6>
-                                        <input id="email" type="email" placeholder="E-mail"
-                                               class="form-control" name="email"
-                                                value="{{$user->email}}"
-                                                required autocomplete="email">
+                            <!-- Email -->
+                            <div class="form-group">
+                                <div class="form-label-group">
+                                    <h6 class="text-muted">Email:</h6>
+                                    <input id="email" type="email" placeholder="E-mail"
+                                           class="form-control" name="email"
+                                            value="{{$user->email}}"
+                                            required autocomplete="email">
 
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="roles">Permissão</label>
+                                <select name="roles" id="roles" class="form-control">
+                                    <option value="" selected>Selecione</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}" {{$role->id == $user->roles->first()->id ? 'selected' : ''}}>{{ucfirst($role->name)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                                <h6 class="text-muted mt-2">Cargo:</h6>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="roles" id="exampleRadios1" value="admin"  {{ ($user->roles=="admin")? "checked" : "" }}>
-                                    <label class="form-check-label" for="exampleRadios1">
-                                        Administrador
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="roles" id="exampleRadios2" value=" " {{ ($user->roles=="")? "checked" : "" }}>
-                                    <label class="form-check-label" for="exampleRadios2">
-                                        Membro
-                                    </label>
-                                </div>
+                            <hr class="me-4">
 
-                                <hr class="me-4">
-
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
 
 {{--                                            <button type="button" href="{{route('admin.noFeature')}}" class="btn btn-danger btn-block m-2">--}}
 {{--                                                Resetar Senha--}}
 {{--                                            </button>--}}
-                                        </div>
-                                        <div class="col">
-                                            <button type="submit" class="btn btn-success btn-block m-2">
-                                                Salvar
-                                            </button>
-                                        </div>
                                     </div>
-                            </form>
-
-                        @endforeach
-
+                                    <div class="col">
+                                        <button type="submit" class="btn btn-success btn-block m-2">
+                                            Salvar
+                                        </button>
+                                    </div>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>
