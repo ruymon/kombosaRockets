@@ -16,7 +16,7 @@
     <img src="{{ public_path('images/logo_badge_new_upright.png') }}" class="float-left p-0 me-0 ml-2" alt="Logo Kombosa Rockets" width="70px">
 
     <div class="text-right" style="font-family: sans-serif !important;">
-        
+
         <span style="font-size: 20px">Tabela - <samp>Usuários</samp></span>
         <br>
         <span class="text-muted">Portal Kombosa Rocket</span>
@@ -45,7 +45,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->username}}</td>
             <td>{{$user->email}}</td>
-            <td>{{$user->roles}}</td>
+            <td>{{$user->roles->first()->name}}</td>
             <td><samp style="font-size: 10px;">{{$user->created_at}}</samp></td>
         </tr>
     @endforeach

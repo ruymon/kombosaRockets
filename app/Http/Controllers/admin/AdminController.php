@@ -10,13 +10,14 @@ use Illuminate\Notifications\Notifiable;
 use PDF;
 use App\News;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
     // Auth
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('role:admin');
     }
 
     public function dataCount()
@@ -24,44 +25,62 @@ class AdminController extends Controller
         $usersCount = User::count();
         $newsCount = News::count();
 
-
-
         return view('admin', compact('usersCount', 'newsCount'));
+    }
+
+    public function create()
+    {
+        $roles = Role::all();
+
+        return view('create', compact('roles'));
+    }
+
+    public function store(Request $request)
+    {
+        $user = User::create($request->all());
+        $user->roles()->attach($request->roles);
+
+        return back();
     }
 
     public function users()
     {
-        $users = DB::table('users')->paginate(10);
-        return view('usersadmin', compact('users'));
+        $roles = Role::all();
+        $users = User::paginate(10);
+        return view('usersadmin', compact('users','roles'));
     }
 
     // Deletar Usuário
-    public function delete($id)
+    public function delete(User $user)
     {
-        $user = DB::table('users')->where('id', $id)->first();
-        DB::table('users')->where('id', $id)->delete();
+        $user->delete();
         alert()->html('Aviso!', "O usuário(a) <strong>{$user->name}</strong> foi deletado(a).", 'info');
         return redirect('admin/users');
     }
 
     // Editar Usuário
-    public function editUser($id)
+    public function editUser(User $user)
     {
-        $user_data = DB::table('users')->where('id', $id)->get();
-        return view('editUser', compact('user_data'));
+        $roles = Role::all();
+        return view('editUser', compact('user','roles'));
     }
 
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request, User $user)
      {
-         $updatedUser = User::find($id);
-         $updatedUser->name = $request->name;
-         $updatedUser->email = $request->email;
-         $updatedUser->username = $request->username;
-         $updatedUser->roles = $request->roles;
+//         $updatedUser = User::find($id);
+//         $updatedUser->name = $request->name;
+//         $updatedUser->email = $request->email;
+//         $updatedUser->username = $request->username;
+//         $updatedUser->roles = $request->roles;
+//
+//         $updatedUser->save();
+        $user->update($request->all());
 
-         $updatedUser->save();
+        if($request->roles) {
+            $user->roles()->sync($request->roles);
+        }
 
-         alert()->html('Aviso!', "O usuário(a) <strong>{$updatedUser->name}</strong> foi atualizado(a).", 'success');
+         alert()->html('Aviso!', "O usuário(a) <strong>{$user->name}</strong> foi atualizado(a).", 'success');
          return redirect('admin/users');
 
      }
@@ -69,7 +88,7 @@ class AdminController extends Controller
     // Gerar PDF de Usuários
     public function pdf()
     {
-        $users = DB::table('users')->get();
+        $users = User::all();
         $generate = PDF::loadView('pdf', compact('users'));
         return $generate->setPaper('A4')->stream('usuarios.pdf');
     }

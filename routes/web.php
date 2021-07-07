@@ -20,24 +20,26 @@ Route::get('/', function () {
 Auth::routes();
 
 // Admin only
-Route::group(['middleware' => 'admin'], function () {
+Route::group([], function () {
     Route::get('/admin', 'admin\AdminController@dataCount')->name('admin');
 
-    Route::get('/admin/{id}/delete', 'admin\AdminController@delete')->name('admin.delete');
+    Route::get('/admin/{user}/delete', 'admin\AdminController@delete')->name('admin.delete');
     Route::get('/admin/users', 'admin\AdminController@users')->name('admin.users');
 
-    Route::get('/admin/{id}/edit', 'admin\AdminController@editUser')->name('admin.editUser');
-    Route::post('/admin/{id}/update', 'admin\AdminController@updateUser')->name('admin.updateUser');
-    
-    Route::get('/admin/pdf', 'admin\AdminController@pdf')->middleware('admin');
+    Route::get('admin/users/create', 'admin\AdminController@create')->name('admin.users.create');
+    Route::post('admin/users', 'admin\AdminController@store')->name('admin.users.store');
+
+    Route::get('/admin/{user}/edit', 'admin\AdminController@editUser')->name('admin.editUser');
+    Route::post('/admin/{user}/update', 'admin\AdminController@updateUser')->name('admin.updateUser');
+
+    Route::get('/admin/pdf', 'admin\AdminController@pdf');
 
     Route::get('/admin/manageNews', 'admin\AdminNewsController@indexNews')->name('admin.indexNews');
     Route::post('/admin/manageNews/create', 'admin\AdminNewsController@createNews')->name('admin.createNews');
-    Route::get('/admin/{id}/deleteNews', 'admin\AdminNewsController@deleteNews')->name('admin.deleteNews');
+    Route::get('/admin/{news}/deleteNews', 'admin\AdminNewsController@deleteNews')->name('admin.deleteNews');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

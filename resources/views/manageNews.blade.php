@@ -55,24 +55,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 <tr>
                                 @foreach($newsList as $news)
                                     <th scope="row" style="width: 3%">{{$news->id}}</th>
                                     <td>{{$news->title}}</td>
                                     <td style="padding:0;">
-                                        <textarea style="width:100%; height:100%;" class="form-control" readonly>{{$news->article}}</textarea> 
+                                        <textarea style="width:100%; height:100%;" class="form-control" readonly>{{$news->article}}</textarea>
                                     </td>
-                                    <td style="width: 11%;">{{$news->name}}</td>
+                                    <td style="width: 11%;">{{$news->author->name}}</td>
 
                                     <td style="width: 11%; padding-left: 0.5em; padding-right: 0.5em;">
                                         <samp>{{$news->updated_at}}</samp>
                                     </td>
-                                    
+
                                     <td style="width: 3%; padding: 0.2em; padding-left:0.5em">
 
                                         <button type="submit" style="padding: 0;border: none;background: none;">
-                                            <a href="{{route('admin.deleteNews', ['id' => $news->id] )}}" class="badge badge-danger text-light">Deletar</a>
+                                            <a href="{{route('admin.deleteNews', $news->id)}}" class="badge badge-danger text-light">Deletar</a>
                                         </button>
 
                                         <br>
@@ -85,7 +85,7 @@
                                     </td>
                                 </tr>
                                 @endforeach
-                               
+
 
 
                             </tbody>

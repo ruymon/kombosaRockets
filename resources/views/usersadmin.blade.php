@@ -71,19 +71,19 @@
                                                 {{$user->created_at}}
                                             </samp>
                                         </td>
-                                        <td>{{$user->roles}}</td>
+                                        <td>{{$user->roles->first()->name}}</td>
                                         <td style="width: 3%; padding: 0.2em; padding-left:0.5em">
 
                                             <button type="submit" style="padding: 0;border: none;background: none;">
                                                 <a onclick="return confirm('Tem certeza que quer deletar esse usuário(a)?')"
-                                                   href="{{route('admin.delete', ['id' => $user->id] )}}"
+                                                   href="{{route('admin.delete',  $user->id)}}"
                                                    class="badge badge-danger text-light">Deletar</a>
                                             </button>
 
                                             <br>
 
                                             <button type="submit" style="padding: 0;border: none;background: none;">
-                                                <a href="{{route('admin.editUser', ['id' => $user->id] )}}"
+                                                <a href="{{route('admin.editUser',  $user->id )}}"
                                                    class="badge badge-success text-light editbtn"
                                                     title="Editar um usuário">Editar
                                                 </a>
@@ -131,7 +131,7 @@
                 <div class="modal-body" id="createUserBody">
 
                     <div class="mx-auto">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('admin.users.store') }}">
                         @csrf
 
                         <!-- Name -->
@@ -210,6 +210,16 @@
                                 </span>
                                     @enderror
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="roles" class="col-form-label text-md-right">Permissão</label>
+                                <select name="roles" id="roles" class="form-control">
+                                    <option value="" selected>Selecione</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
 

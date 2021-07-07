@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('admin.users.create') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -34,14 +34,14 @@
 
                                 <div class="col-md-6">
                                     <input id="username" type="text"
-                                           class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                           class="form-control @error('username') is-invalid @enderror"
                                            name="username" value="{{ old('username') }}" required>
 
-                                    @if ($errors->has('username'))
+                                   @error('username')
                                         <span class="invalid-feedback">
-                                    <strong>{{ $errors->first('username') }}</strong>
+                                    <strong>{{ $message }}</strong>
                                 </span>
-                                    @endif
+                                    @enderror
                                 </div>
                             </div>
 
@@ -87,6 +87,16 @@
                                     <input id="password-confirm" type="password" class="form-control"
                                            name="password_confirmation" required autocomplete="new-password">
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="roles" class="col-md-4 col-form-label text-md-right">Permissão</label>
+                                <select name="roles" id="roles" class="form-control">
+                                    <option value="" selected>Selecione</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group row mb-0">
