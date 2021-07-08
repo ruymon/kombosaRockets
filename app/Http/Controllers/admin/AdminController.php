@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\RequestCreate;
+use App\Notifications\NewAccount;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,10 +37,11 @@ class AdminController extends Controller
         return view('create', compact('roles'));
     }
 
-    public function store(Request $request)
+    public function store(RequestCreate $request)
     {
-        $user = User::create($request->all());
+        $user = User::create($request->validated());
         $user->roles()->attach($request->roles);
+        $user->notify(new NewAccount());
 
         return back();
     }

@@ -42,6 +42,11 @@
                     </div>
 
                     <div class="card-body">
+                        @foreach($errors->all() as $error)
+                            <div class="alert alert-danger">
+                                {{$error}}
+                            </div>
+                        @endforeach
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover table-striped">
 
@@ -71,7 +76,7 @@
                                                 {{$user->created_at}}
                                             </samp>
                                         </td>
-                                        <td>{{$user->roles->first()->name}}</td>
+                                        <td>@lang($user->roles->first()->name)</td>
                                         <td style="width: 3%; padding: 0.2em; padding-left:0.5em">
 
                                             <button type="submit" style="padding: 0;border: none;background: none;">
@@ -215,9 +220,9 @@
                             <div class="form-group">
                                 <label for="roles" class="col-form-label text-md-right">Permissão</label>
                                 <select name="roles" id="roles" class="form-control">
-                                    <option value="" selected>Selecione</option>
+
                                     @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        <option {{$role->name == 'user'?'selected':''}} value="{{$role->id}}">@lang($role->name)</option>
                                     @endforeach
                                 </select>
                             </div>
